@@ -7,19 +7,10 @@ import { BlipTable } from "components/BlipTable"
 import { CommonProvider } from "contexts/CommonContext"
 import { PageTemplate } from "components/PageTemplate"
 import { BlipTabs } from 'blip-toolkit'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fas } from '@fortawesome/free-solid-svg-icons'
 
-const tableContactsModel = [
-    { label: "Name", key: "name" },
-    { label: "Group", key: "group" },
-    { label: "Identity", key: "identity" },
-    { label: "Source", key: "source" }
-]
-
-const tableThreadsModel = [
-    { label: "Identity", key: "identity" },
-    { label: "Last Message", key: "lastMessage" },
-    { label: "Unread Messages", key: "unreadMessages" }
-]
+library.add(fas);
 
 const tableServicesModel = [
     { label: "Url", key: "identity" },
@@ -66,7 +57,7 @@ function App() {
                         </ul>
                         <div className="bp-tab-content fl w-100" data-ref="services">
                             <BlipTable
-                                idKey="identity"
+                                idKey="longName"
                                 model={tableServicesModel}
                                 data={services}
                                 canSelect = {false}

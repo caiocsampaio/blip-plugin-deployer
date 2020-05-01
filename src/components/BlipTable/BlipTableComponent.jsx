@@ -1,6 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { BlipCheckBox } from 'components/BlipCheckBox'
+import { BlipButton } from "components/BlipButton"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { editBot, addNewBot, newBotModal } from '../../api/botService'
 
 const Sorter = ({
   property,
@@ -48,10 +51,10 @@ const BlipTableComponent = ({
           model.map(
             property => <th key={property.key} >
               <div className="flex items-center">
-                {
+                {/* {
                   !property.notSortable &&
                   <Sorter property={property.key} currentSort={currentSort} setSort={setSort} />
-                }
+                } */}
                 <p>{property.label}</p>
               </div>
             </th>
@@ -87,7 +90,7 @@ const BlipTableComponent = ({
           data.map(
             item => {
               const isSelected = selectedItems.some(selectedItem => item[idKey] === selectedItem[idKey])
-              return <tr key={item[idKey]} className={`${isSelected ? 'selected' : ''}`}>
+              return <tr id={item[idKey]} key={item[idKey]} className={`${isSelected ? 'selected' : ''}`}>
                 {
                   canSelect &&
                   <td className='w3'><BlipCheckBox toggleCheck={() => toggleSelect(item)} checked={isSelected} /></td>
@@ -107,7 +110,18 @@ const BlipTableComponent = ({
                 
                 {
                   addButtons && 
-                  <td>teste</td>
+                  <td>
+                    <BlipButton
+                      buttonClass={'bp-btn--flat bp-btn--small bp-btn--bot'}
+                      onClick={() => editBot(item)}
+                      icon={'pen'}
+                    />
+                    <BlipButton
+                      buttonClass={'bp-btn--flat bp-btn--small bp-btn--true'}
+                      onClick={() => alert('publish')}
+                      icon={'upload'}
+                    />
+                  </td>
                 }
               </tr>
             }
@@ -115,6 +129,11 @@ const BlipTableComponent = ({
           :
           <tr className="w-100 bp-bg-offwhite tc"><td className="bp-bg-offwhite" colSpan={model.length + 1}><p className="empty-message pa5">{emptyMessage}</p></td></tr>
       }
+      {/* <tr>
+        <td className='flex justify-around items-center clickable' onClick={newBotModal}> 
+          <FontAwesomeIcon icon='plus-circle' />
+        </td>
+      </tr> */}
     </tbody>
   </table>
 }
