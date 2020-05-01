@@ -35,6 +35,7 @@ const BlipTableComponent = ({
   emptyMessage,
   isAllSelected,  
   bodyHeight,
+  addButtons
 }) => {
   return <table className="bp-table w-100 tl bp-table--scroll-y ">
     <thead className="bp-c-desk">
@@ -62,6 +63,14 @@ const BlipTableComponent = ({
             <div className={`selectedItems flex justify-around items-center ${selectedItems.length > 0 ? '' : 'hidden'}`}>
               <p className="nowrap">{selectedItems.length} {content.selected}</p>
               {actions}
+            </div>
+          </th>
+        }
+        {
+          addButtons && 
+          <th>
+            <div className="flex items-center">
+              <p>Actions</p>
             </div>
           </th>
         }
@@ -94,6 +103,11 @@ const BlipTableComponent = ({
                 {
                   canSelect &&
                   <td className='w5'>{item['actions']}</td>
+                }
+                
+                {
+                  addButtons && 
+                  <td>teste</td>
                 }
               </tr>
             }

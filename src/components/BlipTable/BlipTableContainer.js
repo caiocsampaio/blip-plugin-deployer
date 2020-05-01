@@ -15,6 +15,7 @@ const BlipTableContainer = ({
   emptyMessage,
   selectedItems,
   bodyHeight = '200px',
+  addButtons,
 }) => {
   const [currentSort, setCurrentSort] = useState({ property: '', order: '' })
 
@@ -75,6 +76,7 @@ const BlipTableContainer = ({
     emptyMessage={emptyMessage || content.emptyMessage}
     isAllSelected={isAllSelected}
     bodyHeight={bodyHeight}
+    addButtons={addButtons}
   />
 }
 
