@@ -8,6 +8,14 @@ export const getApplication = async () => {
     return application
 }
 
+export const getServices = async () => {
+    const { response: application } = await IframeMessageProxy.sendMessage({
+        action: 'getApplication',
+    })
+
+    return application.applicationJson.settings.children;
+}
+
 export const getContacts = async () => {
     const { response: { items } } = await IframeMessageProxy.sendMessage({
         action: 'sendCommand',

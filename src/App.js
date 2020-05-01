@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import "blip-toolkit/dist/blip-toolkit.css"
-import { getApplication, getContacts, getThreads } from "./api/applicationService"
+import { getApplication, getServices } from "./api/applicationService"
 import { showToast, withLoading } from "./api/commomService"
 import { PageHeader } from "components/PageHeader"
 import { BlipTable } from "components/BlipTable"
@@ -29,20 +29,19 @@ const tableServicesModel = [
 ]
 
 function App() {
-    const [application, setApplication] = useState({})
-    const [contacts, setContacts] = useState([])
-    const [threads, setThreads] = useState([])
+    const [application, setApplication] = useState({});
+    const [services, setServices] = useState([]);
 
     const fetchApi = async () => {
-        setContacts(await getContacts())
         setApplication(await getApplication())
-        setThreads(await getThreads())
+        setServices(await getServices())
 
         showToast({
             type: "success",
             message: "Success loaded"
         })
     }
+
 
     useEffect(() => {
         withLoading(async () => {
@@ -52,12 +51,6 @@ function App() {
     }, [])
 
     const title = `Router Deployer Plugin - ${application.name}`;
-    let services = '';
-    let isRouter = application.template === 'master';
-
-    if (isRouter) {
-        services = application.applicationJson.settings.children;
-    }
     
     return (
         <CommonProvider>
@@ -70,43 +63,17 @@ function App() {
                                 {/* eslint-disable-next-line */}
                                 <a href="#" data-ref="services">Services</a>
                             </li>
-                            <li>
-                                {/* eslint-disable-next-line */}
-                                <a href="#" data-ref="contacts">Contacts</a>
-                            </li>
-                            <li>
-                                {/* eslint-disable-next-line */}
-                                <a href="#" data-ref="threads">Threads</a>
-                            </li>
                         </ul>
                         <div className="bp-tab-content fl w-100" data-ref="services">
                             <BlipTable
                                 idKey="identity"
                                 model={tableServicesModel}
                                 data={services}
-                                canSelect={false}
+                                canSelect = {false}
                                 bodyHeight="400px"
                                 selectedItems={[]}
-                            />
-                        </div>
-                        <div className="bp-tab-content fl w-100" data-ref="contacts">
-                            <BlipTable
-                                idKey="identity"
-                                model={tableContactsModel}
-                                data={contacts}
-                                canSelect={false}
-                                bodyHeight="400px"
-                                selectedItems={[]}
-                            />
-                        </div>
-                        <div className="bp-tab-content fl w-100" data-ref="threads">
-                            <BlipTable
-                                idKey="identity"
-                                model={tableThreadsModel}
-                                data={threads.map(t => ({ ...t, lastMessage: t.lastMessage.content }))}
-                                canSelect={false}
-                                bodyHeight="400px"
-                                selectedItems={[]}
+                                action="teste"
+                                addButtons={true}
                             />
                         </div>
                     </div>
