@@ -1,4 +1,5 @@
-import { IframeMessageProxy } from 'iframe-message-proxy'
+import { IframeMessageProxy } from 'iframe-message-proxy';
+const bucketFileName = 'plugin-deployer';
 
 export const getApplication = async () => {
     const { response: application } = await IframeMessageProxy.sendMessage({
@@ -8,20 +9,23 @@ export const getApplication = async () => {
     return application;
 }
 
-export const getApplicationById = async (id) => {
-    console.log(`getting application by id ${id.split('@')[0]}`);
-    const { response: application } = await IframeMessageProxy.sendMessage({
-        action: 'sendCommand',
-        content: {
-            destination: 'MessagingHubService',
-            command: {
-                method: 'get',
-                uri: '/account/keys'
+export const getBotFromBucket = async (id) => {
+    try {
+        const { response: botsDocument } = await IframeMessageProxy.sendMessage({
+            action: 'sendCommand',
+            content: {
+                command: {
+                    method: 'get',
+                    uri: `/buckets/${bucketFileName}`
+                }
             }
-        }
-    });
-    console.log(application);
-    return application;
+        });
+    
+        return botsDocument[id];
+    }
+    catch (e) {
+        return null
+    }
 }
 
 export const getPermissionsObject = async () => {
@@ -68,4 +72,13 @@ export const getThreads = async () => {
     });
 
     return items;
+}
+
+export const setHeight = async (height) => {
+    console.log('bolo')
+    await IframeMessageProxy.sendMessage({ 
+        action: 'heightChange', 
+        content: height 
+    });
+    console.log('bolo-fim')
 }

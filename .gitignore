@@ -24,3 +24,4 @@ yarn-error.log*
 .vscode/launch.json
 help/bot-sample.json
 help/router-sample.json
+help/bucket.json

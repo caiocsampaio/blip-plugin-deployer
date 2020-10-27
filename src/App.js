@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import "blip-toolkit/dist/blip-toolkit.css"
-import { getApplication, getServices } from "./api/applicationService"
+import { getApplication, getServices, setHeight } from "./api/applicationService"
 import { showToast, withLoading } from "./api/commomService"
 import { PageHeader } from "components/PageHeader"
 import { BlipTable } from "components/BlipTable"
@@ -31,6 +31,8 @@ function App() {
             type: "success",
             message: "Success loaded"
         })
+
+        setHeight(200);
     }
 
 
@@ -57,13 +59,12 @@ function App() {
                         </ul>
                         <div className="bp-tab-content fl w-100" data-ref="services">
                             <BlipTable
-                                idKey="longName"
+                                idKey="shortName"
                                 model={tableServicesModel}
                                 data={services}
                                 canSelect = {false}
                                 bodyHeight="400px"
                                 selectedItems={[]}
-                                action="teste"
                                 addButtons={true}
                             />
                         </div>

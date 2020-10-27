@@ -129,11 +129,11 @@ const BlipTableComponent = ({
           :
           <tr className="w-100 bp-bg-offwhite tc"><td className="bp-bg-offwhite" colSpan={model.length + 1}><p className="empty-message pa5">{emptyMessage}</p></td></tr>
       }
-      {/* <tr>
+      <tr>
         <td className='flex justify-around items-center clickable' onClick={newBotModal}> 
           <FontAwesomeIcon icon='plus-circle' />
         </td>
-      </tr> */}
+      </tr>
     </tbody>
   </table>
 }

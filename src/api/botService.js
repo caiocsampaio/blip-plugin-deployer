@@ -1,5 +1,5 @@
 import { IframeMessageProxy } from 'iframe-message-proxy';
-import { getApplicationById, getApplication } from './applicationService';
+import { getBotFromBucket } from './applicationService';
 
 const openModal = async (title, html, confirm, cancel) => {
     await IframeMessageProxy.sendMessage({
@@ -19,7 +19,28 @@ export const newBotModal = async () => {
 
 export const editBot = async (bot) => {
     console.log(bot);
-    const botApplication = await getApplication();
-    console.log(botApplication);
-    openModal('Editar', '<div>body html</div>', 'Salvar', 'Cancelar');
+    const botInfo = await getBotFromBucket(bot.shortName);
+    openModal(
+        'Editar', 
+        `<div width="500px">
+            ${JSON.stringify(botInfo)}
+        </div><div width="500px">
+            ${JSON.stringify(botInfo)}
+        </div><div width="500px">
+            ${JSON.stringify(botInfo)}
+        </div><div width="500px">
+            ${JSON.stringify(botInfo)}
+        </div><div width="500px">
+            ${JSON.stringify(botInfo)}
+        </div><div width="500px">
+            ${JSON.stringify(botInfo)}
+        </div><div width="500px">
+            ${JSON.stringify(botInfo)}
+        </div><div width="500px">
+            ${JSON.stringify(botInfo)}
+        </div>`, 
+        'Salvar', 
+        'Cancelar');
 }
+
+
